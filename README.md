@@ -5,6 +5,8 @@ Ngspice-31 reads PSPICE device libs. These are often provided by the semiconduct
 
 
 ## set up a schematic for simulation,
+      Tool/Generate Netlist File...
+
 
 
 ## create and apply models,
@@ -37,6 +39,13 @@ transient:
 * For named nets, use global labels instead of local labels.
   The reason for this is that in the netlists, global identifiers will be used as-is but local labels get text prepended to the name—which makes it hard for you to remember/guess what the full identifier is.
 
+
+### Netlist name precautions
+
+Many software tools that use netlists do not accept spaces in the component names, pins, nets or other informations. Avoid using spaces in labels, or names and value fields of components or their pins to ensure maximum compatibility.
+
+In the same way, special characters other than letters and numbers can cause problems. Note that this limitation is not related to Eeschema, but to the netlist formats that can then become untranslatable to software that uses netlist files.
+PSPICE netlists
 
 ## Run a circuit simulation
 `Select Tools > Simulator` from main menu and you will see the Spice Simulator window appear.
