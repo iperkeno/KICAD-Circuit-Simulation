@@ -19,6 +19,7 @@ transient:
 []()
 
 [Quick Guide to Using KiCad for SPICE Simulation](https://mithatkonar.com/wiki/doku.php/kicad/kicad_spice_quick_guide)(Mithat Konar)
+written for KiCad 4. 
 
 []()
 
