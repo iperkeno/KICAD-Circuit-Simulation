@@ -1,10 +1,13 @@
 # KICAD - Circuit Simulation
 Kicad 5.0 has a new and improved interface with SPICE ([ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html) specifically).
 
+Ngspice-31 reads PSPICE device libs. These are often provided by the semiconductor device manufacturers for design support. Internally ngspice translates the PSPICE syntax to ngspice before simulating. No more manual tweaking of the library description is required. 
 
 
-    * set up a schematic for simulation,
-    * create and apply models,
+## set up a schematic for simulation,
+
+
+## create and apply models,
 
 
 SPICE uses models to describe the behavior of electronic components. KiCad implicitly assigns models to passive components, such as resistors and capacitors, however, models for semiconductor devices, such as diodes and transistors, need to be explicitly assigned.
@@ -67,7 +70,7 @@ Remove the V(Vin) waveform and view the I(R1) signal this time. You will see the
 
 Again, play around and view some of the other signals.
 ## Web References
-[]()
+[Tutorial: ngspice simulation in KiCad/Eeschema](http://ngspice.sourceforge.net/ngspice-eeschema.html#digi)
 
 [Quick Guide to Using KiCad for SPICE Simulation](https://mithatkonar.com/wiki/doku.php/kicad/kicad_spice_quick_guide)(Mithat Konar)
 written for KiCad 4. 
