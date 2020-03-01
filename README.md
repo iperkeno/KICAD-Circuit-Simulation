@@ -1,5 +1,6 @@
 # KICAD - Circuit Simulation
 Kicad 5.0 has a new and improved interface with SPICE ([ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html) specifically).
+Eeschema provides an embedded electrical circuit simulator using ngspice as the simulation engine.
 
 Ngspice-31 reads PSPICE device libs. These are often provided by the semiconductor device manufacturers for design support. Internally ngspice translates the PSPICE syntax to ngspice before simulating. No more manual tweaking of the library description is required. 
 
@@ -35,6 +36,21 @@ comment: *
 transient: 
 ```tran 12n 1m```
 
+```
+  * wait with the following commands until simulation has finished
+  set controlswait
+  * save the name of the current plot into a variable
+  set prevplot = $curplot
+  * do an operating point evaluation
+  op
+  * print the data
+  echo Data from $curplot
+  print all
+  * go back to the previous plot
+  setplot $prevplot
+```
+
+
 ## Best Prctice
 * For named nets, use global labels instead of local labels.
   The reason for this is that in the netlists, global identifiers will be used as-is but local labels get text prepended to the name—which makes it hard for you to remember/guess what the full identifier is.
@@ -45,7 +61,6 @@ transient:
 Many software tools that use netlists do not accept spaces in the component names, pins, nets or other informations. Avoid using spaces in labels, or names and value fields of components or their pins to ensure maximum compatibility.
 
 In the same way, special characters other than letters and numbers can cause problems. Note that this limitation is not related to Eeschema, but to the netlist formats that can then become untranslatable to software that uses netlist files.
-PSPICE netlists
 
 ## Run a circuit simulation
 `Select Tools > Simulator` from main menu and you will see the Spice Simulator window appear.
