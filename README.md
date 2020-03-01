@@ -2,6 +2,13 @@
 [ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html)
 
 
+## Basic NGSPICE syntax
+
+comment: *
+
+transient: 
+```tran 12n 1m```
+
 ## Best Prctice
 * For named nets, use global labels instead of local labels.
   The reason for this is that in the netlists, global identifiers will be used as-is but local labels get text prepended to the name—which makes it hard for you to remember/guess what the full identifier is.
