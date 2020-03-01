@@ -22,9 +22,9 @@ transient:
 [Quick Guide to Using KiCad for SPICE Simulation](https://mithatkonar.com/wiki/doku.php/kicad/kicad_spice_quick_guide)(Mithat Konar)
 written for KiCad 4. 
 
-[]()
+[Performing A Circuit Simulation In KiCad](https://www.woolseyworkshop.com/2019/07/01/performing-a-circuit-simulation-in-kicad/)  (July 1, 2019 by John Woolsey)
 
-[]()
+[Spice and Kicad 5.0](https://thestumbler.io/projs/modelrr/03-spice-and-kicad.html) (Chris Lott)
 
 []()
 
