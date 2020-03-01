@@ -1,5 +1,6 @@
 # KICAD - Circuit Simulation
-[ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html)
+Kicad 5.0 has a new and improved interface with SPICE ([ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html) specifically).
+
 
 
 ## Basic NGSPICE syntax
