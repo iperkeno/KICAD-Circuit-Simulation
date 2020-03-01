@@ -8,6 +8,9 @@ Ngspice-31 reads PSPICE device libs. These are often provided by the semiconduct
 ## set up a schematic for simulation,
       Tool/Generate Netlist File...
 
+### Run External NGSPICE
+
+     gnome-terminal -e ngspice 
 
 
 ## create and apply models,
@@ -29,7 +32,7 @@ assign the model to the component.
 ## Basic NGSPICE syntax
 
 comment: *
-
+in line comment: $
 
 ### SPICE control statements
 
