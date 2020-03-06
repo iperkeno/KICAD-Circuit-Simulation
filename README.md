@@ -96,6 +96,51 @@ To determine a value along the sine wave, right-click on V(Vin) in the Signals l
 Remove the V(Vin) waveform and view the I(R1) signal this time. You will see the current oscillating between 4.09 and 4.29 mA.
 
 Again, play around and view some of the other signals.
+
+## Simulating multi-gate devices
+[reference](https://frdmtoplay.com/simulating-multi-gate-devices-in-kicad-with-ngspice/)
+
+The 74HC00 is a quad 2-input NAND gate. KiCAD splits the IC into five discrete components: four individual gates (Units A-D) and one power unit (Unit E).
+
+The experimental ngspice model assumes that each gate maps to one instance of the SPICE model. 
+Each instance of the 74HC00 SPICE model requires five connections: two inputs, an output, VCC, and ground.
+
+      .SUBCKT 74HC00  in1 in2 out  NVCC NVGND 
+
+This model works well if the schematic contains a single gate. Placing one of the NAND gates and the power unit exposes five pins in eeschema and the circuit simulates properly. Note that the NAND gate and the power unit need to be part of the same IC (U1A and U1E). Multiple pairs of NAND and power units could be added to the schematic and used with the default ngspice 74HC00 model if they were treated as discrete components (U1A, U2A, U3A, etc).
+
+Simple schematic
+
+However, in practice, all four NAND gates of the 74HC00 are going to be used. When multiple NAND gates (U1A, U1B, etc) from the same IC are placed in the schematic the ngspice model fails. KiCAD assumes that each IC maps to one SPICE model. Placing all four NAND gates of a 74HC00 into the model exposes 14 pins and KiCAD expects a SPICE model with 14 parameters.
+
+ngspice Model
+
+The normal ngspice 74HC00 model can be expanded into a quad gate model by creating a new component, the 74HC00x4. The new component maps the original 14 pins of the 74HC00 to four discrete five pin models.
+
+      .SUBCKT 74HC00x4 1A 1B 1Y 2A 2B 2Y GND 3Y 3A 3B 4Y 4A 4B VCC
+      XU1 1A 1B 1Y VCC GND 74HC00  
+      XU2 2A 2B 2Y VCC GND 74HC00  
+      XU3 3A 3B 3Y VCC GND 74HC00  
+      XU4 4A 4B 4Y VCC GND 74HC00  
+      .ENDS
+
+TI Model
+
+TI provides detailed 74HC models which can also be modified to work with KiCAD by merging four individual gates into one larger chip.
+
+      .SUBCKT SN74HC00 1A 1B 1Y 2A 2B 2Y AGND 3Y 3A 3B 4Y 4A 4B VCC
+      XU1 1Y 1A 1B VCC AGND LOGIC_GATE_2PIN_OD_LVC_2i_NAND_PP_CMOS  
+      XU2 2Y 2A 2B VCC AGND LOGIC_GATE_2PIN_OD_LVC_2i_NAND_PP_CMOS  
+      XU3 3Y 3A 3B VCC AGND LOGIC_GATE_2PIN_OD_LVC_2i_NAND_PP_CMOS  
+      XU4 4Y 4A 4B VCC AGND LOGIC_GATE_2PIN_OD_LVC_2i_NAND_PP_CMOS  
+      .ENDS
+
+### Hierarchical Sheets
+
+SPICE models also work within KiCAD's hierarchical sheets allowing complex logic gates to be built and reused in schematics. A XOR gate can be simulated implementing it with four NAND gates using one quad 74HC00 SPICE model.
+
+
+
 ## Web References
 [Tutorial: ngspice simulation in KiCad/Eeschema](http://ngspice.sourceforge.net/ngspice-eeschema.html#digi)
 
