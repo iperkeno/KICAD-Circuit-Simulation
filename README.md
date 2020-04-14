@@ -2,16 +2,24 @@
 Kicad 5.0 has a new and improved interface with SPICE ([ngspice](http://ngspice.sourceforge.net/ngspice-eeschema.html) specifically).
 Eeschema provides an embedded electrical circuit simulator using ngspice as the simulation engine.
 
-Ngspice-31 reads PSPICE device libs. These are often provided by the semiconductor device manufacturers for design support. Internally ngspice translates the PSPICE syntax to ngspice before simulating. No more manual tweaking of the library description is required. 
 
 
-## set up a schematic for simulation,
-      Tool/Generate Netlist File...
+## Simulation with external NGSPICE
+
+### set up a schematic for simulation
+To perform a simulation with external Ngspice is necessary to generate the net file.
+
+1. From menu `Tool/Generate Netlist File...`
+2. Select `Spice` tab;
+3. Press button `Generate Netlist`
+4. Select the netlist name `<net-name>.cir` and save file      
 
 ### Run External NGSPICE
 
-     gnome-terminal -e ngspice 
+     gnome-terminal -e "ngspice  absolute/path/to/file/<net-name>.cir" 
 
+## Device Libs
+Ngspice-31 reads PSPICE device libs. These are often provided by the semiconductor device manufacturers for design support. Internally ngspice translates the PSPICE syntax to ngspice before simulating. No more manual tweaking of the library description is required. 
 
 ## create and apply models,
 
@@ -54,7 +62,7 @@ transient:
 ```
 
 
-## Best Prctice
+## Best Practice
 * For named nets, use global labels instead of local labels.
   The reason for this is that in the netlists, global identifiers will be used as-is but local labels get text prepended to the name—which makes it hard for you to remember/guess what the full identifier is.
 
@@ -113,7 +121,7 @@ Simple schematic
 
 However, in practice, all four NAND gates of the 74HC00 are going to be used. When multiple NAND gates (U1A, U1B, etc) from the same IC are placed in the schematic the ngspice model fails. KiCAD assumes that each IC maps to one SPICE model. Placing all four NAND gates of a 74HC00 into the model exposes 14 pins and KiCAD expects a SPICE model with 14 parameters.
 
-ngspice Model
+**ngspice Model**
 
 The normal ngspice 74HC00 model can be expanded into a quad gate model by creating a new component, the 74HC00x4. The new component maps the original 14 pins of the 74HC00 to four discrete five pin models.
 
@@ -124,7 +132,7 @@ The normal ngspice 74HC00 model can be expanded into a quad gate model by creati
       XU4 4A 4B 4Y VCC GND 74HC00  
       .ENDS
 
-TI Model
+**TI Model**
 
 TI provides detailed 74HC models which can also be modified to work with KiCAD by merging four individual gates into one larger chip.
 
